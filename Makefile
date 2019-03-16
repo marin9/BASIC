@@ -1,34 +1,18 @@
 CC=gcc
-CFLAGS=-Wall -Wextra -g -c -I$(INCDIR)
-
-SRCDIR=src
-INCDIR=inc
-OBJDIR=obj
+CFLAGS=-Wall -Wextra
+SRC=basic.c
 TARGET=basic
-
-CODES 	 := $(wildcard $(SRCDIR)/*.c)
-INCLUDES := $(wildcard $(INCDIR)/*.h)
-OBJECTS	 := $(CODES:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
+TEST=test/test7.bas
 
 
 all: $(TARGET)
 
 run: $(TARGET)
-	@./basic
+	@./$(TARGET) $(TEST)
+
+$(TARGET): $(SRC)
+	$(CC) $(CFLAGS) $(SRC) -o $(TARGET)
 
 clean:
-	@-rm -rf $(OBJDIR)
-	@-rm -f $(TARGET)
-	@echo "Clean"
+	rm $(TARGET)
 
-
-$(TARGET): $(OBJDIR) $(OBJECTS)
-	@echo "Create  $(TARGET)"
-	@$(CC) -g $(CODES) -o $@ -I$(INCDIR)
-
-$(OBJECTS): $(OBJDIR)/%.o : $(SRCDIR)/%.c $(INCLUDES)
-	@echo Compile $<
-	@$(CC) $(CFLAGS) $< -o $@
-
-$(OBJDIR):
-	@mkdir $@

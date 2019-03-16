@@ -1,0 +1,7 @@
+LET A=50
+LET B=100  
+LET C=2  
+PRINT A+B*C  
+INPUT A  
+PRINT A*A
+END
